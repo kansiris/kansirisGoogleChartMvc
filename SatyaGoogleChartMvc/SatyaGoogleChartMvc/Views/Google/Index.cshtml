@@ -1,0 +1,50 @@
+﻿@model SatyaGoogleChartMvc.Models.CricketModel
+
+<title>
+    @ViewBag.Title
+</title>
+<fieldset>
+    <legend style="font-family:Arial;color:blue;font-size:large">M.S. DHONI's 100s and 50s GOOGLE CHART</legend>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var Year1 = [@Model.CricketData.Year];
+            var Century1 = [@Model.CricketData.Century];
+            var HalfCentury1 = [@Model.CricketData.HalfCentury];
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', '@Model.CricketYear');
+            data.addColumn('number', '@Model.CenturyTitle');
+            data.addColumn('number', '@Model.HalfCenturyTitle');
+            for (i = 0; i < Year1.length; i++) {
+                //alert(new Date(Year1[i].toString().split('-')[1]));
+                data.addRow([new Date(2014, 0, 20), Century1[i], HalfCentury1[i]]);
+            }
+            var options = {
+                title: 'M.S. DHONI CENTURY AND HALF CENTURY',
+                hAxis: {
+                    //title: '@Model.CricketYear', titleTextStyle: { color: 'blue' }
+                    ticks: [new Date(2014, 0, 20), new Date(2014, 1, 20), new Date(2014, 2, 20), new Date(2014, 3, 20),
+                 new Date(2014, 4, 20), new Date(2014, 5, 20), new Date(2014, 6, 20), new Date(2014, 7, 20),
+                 new Date(2014, 8, 20), new Date(2014, 9, 20), new Date(2014, 10, 20), new Date(2014, 11, 20)
+                    ]
+                       }
+            };
+
+            //Different chart types >> AreaChart , BubbleChart ,LineChart ,ScatterChart
+
+            //var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            //var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }     
+    </script>
+    <div id="chart_div" style="width: 1100px; height: 700px;">
+    </div>
+</fieldset>
